@@ -1,0 +1,51 @@
+#version: "3.6"
+
+networks:
+    regitra-network:
+        name: regitra-network
+        external: true
+
+services:
+    regitra_clients:
+        image: regitra/clients:latest
+        container_name: regitra_clients
+        build:
+            context: ./
+            dockerfile: .docker/clients/Dockerfile
+        volumes:
+            - ./:/var/www/html
+            - ./shared:/var/shared
+            - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        environment:
+            BASEDIR: /var/www/html
+#            COMPOSER_AUTH: '${COMPOSER_AUTH}'
+            HOME: /var/www/html
+            PHP_IDE_CONFIG: 'serverName=clients.dv'
+        ports:
+            - "5173:5173"
+        networks:
+            - regitra-network
+
+    regitra_clients_web:
+        image: regitra/clients_web:latest
+        container_name: regitra_clients_web
+        build:
+            context: ./
+            dockerfile: .docker/web/Dockerfile
+        links:
+            - regitra_clients:php_fpm
+        ports:
+            - "8088:80"
+        environment:
+            - BASEDIR=/var/www/html
+
+        volumes:
+            - ./.docker/web/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            - ./:/var/www/html
+            - ./shared:/var/shared
+
+        networks:
+            - regitra-network
+
+        depends_on:
+            - regitra_clients
