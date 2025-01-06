@@ -7,6 +7,8 @@ use Exception;
 use Lt\Regitra\Data\Client;
 use Lt\Regitra\Exceptions\ValidationException;
 use Lt\Regitra\Storage\ClientRepository;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 class ClientController
 {
@@ -17,12 +19,11 @@ class ClientController
         $this->clientRepository = $clientRepository;
     }
 
-    public function add(array $request, string $body): void
+    public function add(Request $request, Response $response, $args): void
     {
+        $body = $request->getBody()->getContents();
+
         $data = json_decode($body, true);
-        if ( $data == null ) {
-            $data = $request;
-        }
 
         $client = self::arrayToClient($data);
 
@@ -31,21 +32,21 @@ class ClientController
 
         $insertedData = self::clientToArray($client);
 
-        echo json_encode($insertedData);
+        $response->getBody()->write(json_encode($insertedData));
     }
 
-    public function clear(array $request): void
+    public function clear(Request $request, Response $response, $args): void
     {
         $this->clientRepository->clear();
-        echo json_encode("cleared");
+        $response->getBody()->write('cleared');
     }
 
-    public function getAll(array $request): void
+    public function getAll(Request $request, Response $response, $args): void
     {
         $clients = $this->clientRepository->getAll();
 
         $clientsArray = array_map(fn(Client $client) => self::clientToArray($client), $clients);
-        echo json_encode($clientsArray);
+        $response->getBody()->write( json_encode($clientsArray));
     }
 
 
