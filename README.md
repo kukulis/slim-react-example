@@ -32,3 +32,12 @@ at line: server_name clients.dv;
 
 also "clients.dv" is written in file docker-compose.yml 
 at line: PHP_IDE_CONFIG: 'serverName=clients.dv' 
+
+## running
+
+After docker is started, write your browser address field: http://localhost:8088 .
+
+Before may need to run 
+    
+    chmod 777 cache
+
