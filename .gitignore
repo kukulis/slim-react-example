@@ -4,3 +4,7 @@ vendor
 .phpunit.result.cache
 xdebug.ini
 .xdebug
+cache
+.bash_history
+.lesshst
+.viminfo

@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "\\Lt\\Regitra\\": "src/"
+            "\\Lt\\Regitra\\": "phpsrc/"
         }
     },
     "autoload-dev": {
