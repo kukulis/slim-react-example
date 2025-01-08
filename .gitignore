@@ -8,3 +8,7 @@ cache
 .bash_history
 .lesshst
 .viminfo
+
+app/index.html
+app/vite.svg
+app/assets
