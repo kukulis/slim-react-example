@@ -21,8 +21,8 @@
     ?>
 </head>
 <body>
-<?php /** @var string $name template parameter */ ?>
-<h1>Hello, <?= htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></h1>
+<?php ///** @var string $name template parameter */ ?>
+<!--<h1>Hello, --><?php //= htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?><!--</h1>-->
 
 <div id="root"></div>
 </body>
