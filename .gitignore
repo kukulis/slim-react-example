@@ -12,3 +12,8 @@ cache
 app/index.html
 app/vite.svg
 app/assets
+node_modules
+
+.npm
+
+app/favicon.ico
